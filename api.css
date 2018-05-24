@@ -1,0 +1,177 @@
+.wrapper{
+    margin: 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 10% 20% auto 10%;
+    grid-template-areas:
+    "header header header header"
+    "lSelectorArea lSelectorArea rSelectorArea rSelectorArea"
+    "arena arena arena arena"
+    "footer footer footer footer"
+}
+
+.header{
+    margin:1em;
+    background-color: blue;
+    grid-column: 0/end;
+    grid-row:0/1;
+    grid-area: header; 
+}
+
+.fOneSelect{
+    margin: auto;
+    grid-column: 0/span 2;
+    grid-row: 2/span 1;
+    grid-area:lSelectorArea;
+    border: .25em;
+}
+#p1Button{
+    margin: 1em;
+}
+
+.fightButton{
+    font-style: bold;
+    grid-row: 2/span 1;
+    grid-column: 2/4;
+    margin: auto;
+}
+
+.fTwoSelect{
+    margin: auto;
+    grid-column: 3/end;
+    grid-row: 2/span 1;
+    grid-area: rSelectorArea;
+    border: .25em;
+}
+#p2Button{
+    margin: 1em;
+}
+
+.battleArea{
+    grid-area: arena;
+    margin: 1em;
+    height: 30em;
+    grid-column: 0/end;
+    grid-row: 3/4;
+    display: grid;
+    grid-template-areas:
+        "f1 f2";
+    
+}
+
+.fOne{
+    margin: 1em;
+    border: .1em solid black;
+    display: grid;
+    grid-template-areas:
+        "name name name"
+        "pic pic stats"
+        "pic pic stats"
+        "pic pic hp";
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 6em auto auto 6em;
+    max-width: 752.79px;
+}
+.fOneStats{
+    grid-area: stats;
+    grid-column: 2/end;
+    grid-row: 2/4;
+    border: .1em solid black;
+}
+#fOneName{
+    grid-area: name;
+    text-align: center;
+    border: .1em solid black;
+    line-height: 6em;
+}
+#fOneImage{
+    grid-area: pic;
+    grid-column: 1/2;
+    grid-row: 2/end;
+    border: .1em solid black;
+    min-height: 0;
+    max-width: 564.6px;
+    
+    /* background-color: black; */
+}
+.fOneImageClass{
+    margin: auto;
+    grid-area: pic;
+    grid-column: 0/span2;
+    grid-row: 1/end;
+    overflow: hidden;
+    min-width: 0;
+    height: 250px;
+    clip: rect(20.0px,200px,200px,0px);
+    /* object-fit: cover; */
+}
+/* img.fOneImageClass{
+    border: 5px solid black;
+    margin: auto; 
+    height: 500px;
+} */
+.fOneHp{
+    grid-area: hp;
+    grid-row:4/end;
+    grid-column: 2/end;
+    border: .1em solid black;
+    text-align: center;
+    font-weight: thicker;
+}
+.fTwo{
+    margin: 1em;
+    border: .1em solid black;
+    display: grid;
+    grid-template-areas:
+        "name name name"
+        "stats pic pic"
+        "stats pic pic"
+        "hp pic pic";
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 6em auto auto 6em;
+}
+.fTwoStats{
+    grid-area: stats;
+    grid-column: 1/2;
+    grid-row: 2/4;
+    border: .1em solid black;
+}
+#fTwoName{
+    grid-area: name;
+    text-align: center;
+    border: .1em solid black;
+    line-height: 6em;
+}
+/* .fTwoImageClass{
+    margin: auto;
+    grid-area: pic;
+    grid-column: 2/end;
+    grid-row: 1/end;
+    overflow: hidden;
+    /* min-width: 0; */
+    height: 250px;
+    
+    object-fit: cover;
+} */
+#fTwoImage{
+    grid-area: pic;
+    grid-column: 2/end;
+    grid-row: 2/end;
+    border: .1em solid black;
+}
+.fTwoHp{
+    grid-area: hp;
+    grid-row:4/end;
+    grid-column: 1/2;
+    border: .1em solid black;
+}
+
+.results{
+    margin: 1em;
+}
+
+.footer{
+    margin: 1em;
+    grid-row: 4/end;
+    grid-column: 1/end;
+}

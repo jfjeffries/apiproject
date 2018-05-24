@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="api.css">
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <title>Pokemon Fight</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <h1>Pokemon Battle</h1>
+        </header>
+        <div class="fOneSelect">
+                <label for="search">Enter fighter 1 (name or #):</label>
+                <input type="text" id="fOneInput" class="fOneInput" required>
+            <button class="p1Button" id="p1Button">Select</button>
+        </div>
+        <button class="fightButton" id="fightButton">FIGHT!</button>
+        <div class="fTwoSelect">
+                <label for="search">Enter fighter 2 (name or #):</label>
+                <input type="text" id="fTwoInput" class="fTwoInput" required>
+            <button class="p2Button" id="p2Button">Select</button>
+        </div>
+        <div class="battleArea">
+            <div class="fOne">
+                <div id="fOneName">Player 1</div>
+                <div class="fOneStats">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div id="fOneImage"></div>
+                <div class="fOneHp">
+                    <h3>HP</h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="fTwo">
+                <div id="fTwoName">Player 2</div>
+                <div class="fTwoStats">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class= "fTwoImageClass" id="fTwoImage"></div>
+                <div class="fTwoHp">
+                    <h3>HP</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+        <div class="results">
+            <div class="winner"></div>
+        </div>
+        <footer class="footer">Here is the footer</div>
+    </div>
+</body>
+<script src="api.js"></script>
+</html>
