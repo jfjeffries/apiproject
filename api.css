@@ -285,6 +285,7 @@
     grid-area: hp;
     font-weight: bolder;
     color: white;
+    background-color: transparent;
 }
 
 .results{
