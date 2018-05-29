@@ -1,4 +1,4 @@
-const baseURL= "http://pokeapi.co/api/v2/pokemon/";
+const baseURL= "https://pokeapi.co/api/v2/pokemon/";
 let url;
 
 const p1Input = document.querySelector(".fOneInput");
@@ -13,6 +13,8 @@ const p2Str = document.getElementById("p2StrNum");
 const p2Def = document.getElementById("p2DefNum");
 const p1InitHp = document.getElementsByClassName("fOneHp");
 const p2InitHp = document.getElementsByClassName("fTwoHp");
+let p1Name;
+let p2Name;
 
 
 const selectP1 = document.querySelector('.p1Button');
@@ -21,7 +23,6 @@ const fightButton = document.querySelector('.fightButton');
 
 selectP1.addEventListener('click', p1Search);
 selectP2.addEventListener('click', p2Search);
-// selectP2.addEventListener('click', p2Enter);
 // fightButton.addEventListener('click', battle);
 
 function p1Search(a){
@@ -58,6 +59,7 @@ function enterP1(data){
     let capName=capFirstName(data.name);
     console.log(capName)
     p1NameSet.innerText=capName;
+    p1Name=capName;
     p1ImageSet.innerHTML=`<img id= "fOneSprite" src=${data.sprites.front_default} />`
     p1Str.innerText=data.stats[2].base_stat;
     p1Def.innerText=data.stats[1].base_stat;
@@ -97,6 +99,7 @@ function enterP2(data){
     let capName=capFirstName(data.name);
     console.log(capName)
     p2NameSet.innerText=capName;
+    p2Name=capName;
     p2ImageSet.innerHTML=`<img id= "fTwoSprite" src=${data.sprites.front_default} />`
     p2Str.innerText=data.stats[2].base_stat;
     p2Def.innerText=data.stats[1].base_stat;
@@ -104,7 +107,35 @@ function enterP2(data){
 
 
 // function battle(x){
+//     let p1HP=p1InitHp;
+//     let p2HP=p2InitHp;
     
+//     let p2AttackStr=p2Str;
+//     let p1DefStr=p1Def;
+//     let p2DefStr=p2Def;
+
+//     function p1Attack() {
+//         let p1AttackStr=p1Str;
+//         let p2DefStr=p2Def;
+//         let hitPower= math.random();
+//         let defPower=math.random();
+
+//         p1AttackStr=p1AttackStr*hitPower;
+//         p2DefStr=p2DefStr*defPower;
+//         let hit=p1AttackStr-p2DefStr;
+//         if (hit>0) {
+//             for (hit; hit > 0; hit--) {
+//             console.log(hit);
+//             p2HP -= hit;
+//             p2NameSet.innerText=p2HP;
+//         } else {
+//             console.log("miss");
+//         }
+//       }
+//     }
+    
+    
+
 // }
 function capFirstName(x){
     for (let j in x){
@@ -117,4 +148,8 @@ function capFirstName(x){
         }
     }
     return x;
+}
+function randomGen(z){
+    z= math.random(z);
+    return z;
 }
