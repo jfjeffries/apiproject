@@ -132,22 +132,30 @@ function battle(){
     } else {
         alert ("Enter combatants!");
     };
-
+    
     function turn(){
-        setTimeout(p1Attack, 5000);
-        
+        new Promise ((resolve, reject) => {setTimeout(p1Attack, 5000);
+            resolve();
+        })
+        .then(()=>{
         if (p2HP>0){
             setTimeout(p2Attack, 3000);
             
             if (p1HP <=0 ){
-                endGame(p2Name);   
+                endGame(p2Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack());
+                clearTimeout(p2Attack);   
                 } else {
                     setTimeout(turn, 3000);
                 }
             } else {
                 endGame(p1Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack);
+                clearTimeout(p2Attack);
             }
-
+        });
         // p1Attack();
         // p2Attack();
     
@@ -165,6 +173,9 @@ function battle(){
             if (p2HP <=0){
                 document.getElementById("p2HP").innerText="RIP";
                 endGame(p1Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack);
+                clearTimeout(p2Attack);
             } else {
                 document.getElementById("p2HP").innerText=p2HP;
                 
@@ -189,6 +200,9 @@ function battle(){
             if (p1HP <=0){
                 document.getElementById("p1HP").innerText="RIP";
                 endGame(p2Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack);
+                clearTimeout(p2Attack);
             } else {
                 document.getElementById("p1HP").innerText=p1HP;
                 return;
@@ -225,21 +239,21 @@ function p1GetHit(){
 }
 
 function p1Attacks(){
-    document.getElementById("fOneSprite").classList.add("pulseit");
+    document.getElementById("fOneSprite").classList.add("flashit");
 
-    setTimeout(toggleClass, 100);
+    setTimeout(toggleClass, 300);
 
     function toggleClass(){
-        document.getElementById("fOneSprite").classList.toggle("pulseit");
+        document.getElementById("fOneSprite").classList.toggle("flashit");
     }
 }
 function p2Attacks(){
-    document.getElementById("fTwoSprite").classList.add("pulseit");
+    document.getElementById("fTwoSprite").classList.add("flashit");
 
-    setTimeout(toggleClass, 100);
+    setTimeout(toggleClass, 300);
 
     function toggleClass(){
-        document.getElementById("fTwoSprite").classList.toggle("pulseit");
+        document.getElementById("fTwoSprite").classList.toggle("flashit");
     }
 }
 function capFirstName(x){
@@ -261,7 +275,7 @@ function randomGen(){
 
 function endGame(winName){
     document.getElementById("name").innerText=winName;
-    setTimeout(setWinnerBox, 5000);
+    setTimeout(setWinnerBox, 2000);
     function setWinnerBox(){
         winnerBox.setAttribute("style", "display: yes");
     };
