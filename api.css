@@ -19,7 +19,35 @@
     grid-area: header; 
     text-align: center;
     color: rgb(19, 19, 201);
-    border-radius: 1em;
+}
+.popup{
+    margin: auto;
+    text-align: center;
+    z-index: 1000;
+    background-color: blue;
+    /* position: absolute; */
+    padding: 1.5em;
+    border: 1em grooved gold; 
+    width: 8em;
+    grid-column: 2/span 2;
+    grid-row: 2/ span 2;
+}
+.popupdivs{
+    margin: auto;
+    text-align: center;
+    line-height: 3em;
+}
+#fight{
+    color: red;
+    font-size: 200%;
+    z-index: 2000;
+    
+}
+#name{
+    color: yellow;
+}
+#wins{
+    color: orange;
 }
 
 .fOneSelect{

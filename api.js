@@ -13,10 +13,18 @@ const p2Str = document.getElementById("p2StrNum");
 const p2Def = document.getElementById("p2DefNum");
 const p1InitHp = document.getElementById("p1Hp");
 const p2InitHp = document.getElementById("p2Hp");
-const p1HpBox = document.getElementById(fOneHpNum);
-const p2HpBox = document.getElementById(fTwoHpNum);
+const p1HpBox = document.getElementById("fOneHpNum");
+const p2HpBox = document.getElementById("fTwoHpNum");
+const winnerBox = document.getElementById("fight");
+const winnerName = document.getElementById("name");
+const winsText = document.getElementById("wins");
+
+winnerBox.setAttribute("style", "display: none");
+
+
 let p1Name;
 let p2Name;
+let winName;
 // console.log(p1InitHp)
 // console.log()
 
@@ -108,117 +116,139 @@ function enterP2(data){
     
 }
 
-var haveWinner=false;
+
 function battle(){
     let p1HP=document.getElementById("p1HP").innerText;
     let p2HP=document.getElementById("p2HP").innerText;
+    var haveWinner = false;
     
-    
-    let p1AttackStr=p1Str.innerText;
-    let p2AttackStr=p2Str.innerText;
-    let p1DefStr=p1Def.innerText;
-    let p2DefStr=p2Def.innerText;
+    let p1AttackStr=document.getElementById("p1StrNum").innerText;
+    let p2AttackStr=document.getElementById("p2StrNum").innerText;
+    let p1DefStr=document.getElementById("p1DefNum").innerText;
+    let p2DefStr=document.getElementById("p2DefNum").innerText;
     
     if (p1Name && p2Name){
-        turn(haveWinner);
+        turn();
     } else {
         alert ("Enter combatants!");
-    }
+    };
 
-    function turn(haveWinner){
-        // if(!haveWinner){
-        // setTimeout(p1Attack, 2000);
-        // setTimeout(p2Attack, 3000); 
-        // } else {
-        //     console.log('is this working?')
-        // }
-        let k=0
-        do {
-            setTimeout(p1Attack, 2000);
-            setTimeout(p2Attack, 3000);
-            console.log("turn: " + k);
-            k++
-    } while(!haveWinner);
+    function turn(){
+        setTimeout(p1Attack, 2000);
+        if (p2HP>0){
+            setTimeout(p2Attack, 2000);
+            if (p1HP <=0 ){
+                setTimeout(endGame(p2Name), 2000);   
+                } else {
+                    setTimeout(turn, 2000);
+                }
+            } else {
+                setTimeout(endGame(p1Name),2000);
+            }
+
+        // p1Attack();
+        // p2Attack();
+    
     }
     function p1Attack() {
         let hitPower= randomGen();
         let defPower=randomGen();
-        p1AttackStr*=hitPower;
-        p2DefStr*=defPower;
+        let turnStr = p1AttackStr*hitPower;
+        let turnDef = p2DefStr*defPower;
         let hit=p1AttackStr-p2DefStr;
         
         if (hit>0) {
-            
+            p2GetHit();
             p2HP -= Math.round(hit);
             if (p2HP <=0){
                 document.getElementById("p2HP").innerText="RIP";
-                haveWinner=true;
-                console.log(p1Name + " wins");                
-                return haveWinner;
-                //p1wins;
-                //refresh page?
+                setTimeout (endGame(p1Name), 2000);
             } else {
                 document.getElementById("p2HP").innerText=p2HP;
-                return;
+                
             }
             
             //add graphic to show hit
         } else {
-            console.log("P1 missed");
+            console.log(`${p1Name} missed`);
         }
       
     }
-    function p2Attack() {
-        let p1AttackStr=p1Str;
-        let p2DefStr=p2Def;
-        let hitPower=Math.random();
-        let defPower=Math.random();
-
-        p2AttackStr=p2AttackStr*hitPower;
-        p1DefStr=p1DefStr*defPower;
+    function p2Attack(haveWinner) {
+        let hitPower= randomGen();
+        let defPower=randomGen();
+        let turnStr = p2AttackStr*hitPower;
+        let turnDef = p1DefStr*defPower;
         let hit=p2AttackStr-p1DefStr;
+    
         if (hit>0) {
-            p1getHit();
+            p1GetHit();
             p1HP -= Math.round(hit);
             if (p1HP <=0){
                 document.getElementById("p1HP").innerText="RIP";
-                haveWinner=true;
-                console.log(p2Name + " wins");
-                return haveWinner;
-                
-                //p2wins;
+                setTimeout (endGame(p2Name), 2000);
             } else {
                 document.getElementById("p1HP").innerText=p1HP;
                 return;
             }
             //add graphic to show hit
         } else {
-            console.log("p2 missed");
+            console.log(`${p2Name} missed`);
         }
       
     }
-function p1getHit(){
-    setTimeout(turnRed, 2500);
-    setTimeout(turnClear, 2500);
-    setTimeout(turnRed, 250);
-    setTimeout(turnClear, 250);
-    turnClear();
-    return
-    function turnRed(){
-        document.getElementById("fOneHpNum").style.backgroundColor="red";
-    }
-    function turnWhite(){
-        document.getElementById("fOneHpNum").style.backgroundColor="white";
-    }
-    function turnClear(){
-        document.getElementById("fOneHpNum").style.backgroundColor="transparent";
-    }
-
     
 
 }
+function p1GetHit(){
+        setTimeout (loop, 1000);
+        function loop(i){
+        setTimeout(turnRed, 1000)
+            i+=1
+            if(i<5){
+                setTimeout(turnClear, 1000);
+                i+=1;
+                loop(i);
+            };
+        setTimeout(turnClear, 1000);   
+        };
+    }
+    
+    function turnRed(){
+        document.getElementById("fOneHpNum").setAttribute("style", "background-color: red");
+    }
+    function turnWhite(){
+        document.getElementById("fOneHpNum").setAttribute("style", "background-color: white");
+    }
+    function turnClear(){
+        document.getElementById("fOneHpNum").setAttribute("style", "background-color: transparent");
+    }
 
-}
+    
+    function p2GetHit(){
+        setTimeout (loop, 1000);
+        function loop(i){
+        setTimeout(turnRed2, 1000)
+            i+=1
+            if(i<5){
+                setTimeout(turnClear2, 1000);
+                i+=1;
+                loop(i);
+            };
+        setTimeout(turnClear2, 1000);
+        };
+    }
+    function turnRed2(){
+        document.getElementById("fTwoHpNum").setAttribute("style", "background-color: red");
+    }
+    function turnWhite2(){
+        document.getElementById("fTwoHpNum").setAttribute("style", "background-color: white");
+    }
+    function turnClear2(){
+        document.getElementById("fTwoHpNum").setAttribute("style", "background-color: transparent");
+    }
+
+
 function capFirstName(x){
     for (let j in x){
         if (j == 0) {
@@ -233,4 +263,13 @@ function capFirstName(x){
 }
 function randomGen(){
     return Math.random();
+}
+
+function endGame(winName){
+    document.getElementById("name").innerText=winName;
+    setTimeout(setWinnerBox, 5000);
+    function setWinnerBox(){
+        winnerBox.setAttribute("style", "display: yes");
+    };
+    // setTimeout(location.reload(), 5000);
 }
