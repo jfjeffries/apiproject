@@ -25,6 +25,10 @@ let p1Name;
 let p2Name;
 let winName;
 
+var p2time;
+var p1time;
+var turnTime;
+
 const selectP1 = document.querySelector('.p1Button');
 const selectP2 = document.querySelector('.p2Button');
 const fightButton = document.querySelector('.fightButton');
@@ -111,32 +115,33 @@ function battle(){
     let p2DefStr=document.getElementById("p2DefNum").innerText;
     
     if (p1Name && p2Name){
-        setTimeout(turn, 3000);
+        turnTime=setTimeout(turn, 3000);
     } else {
         alert ("Enter combatants!");
     };
     
     function turn(){
-        new Promise ((resolve, reject) => {setTimeout(p1Attack, 5000);
+        new Promise ((resolve, reject) => {
+            p1time=setTimeout(p1Attack, 1000);
             resolve();
         })
         .then(()=>{
-        if (p2HP>0){
-            setTimeout(p2Attack, 3000);
+        if (p2HP>0 && p1HP>0){
+            p2time=setTimeout(p2Attack, 3000);
             
-            if (p1HP <=0 ){
-                endGame(p2Name);
-                clearTimeout(turn);
-                clearTimeout(p1Attack);
-                clearTimeout(p2Attack);   
+            if (p1HP <=0){
+                clearTimeout(turnTime);
+                clearTimeout(p1time);
+                clearTimeout(p2time);  
+                endGame(p2Name); 
                 } else {
-                    setTimeout(turn, 3000);
+                    turnTime=setTimeout(turn, 3000);
                 }
             } else {
+                clearTimeout(turnTime);
+                clearTimeout(p1time);
+                clearTimeout(p2time);
                 endGame(p1Name);
-                clearTimeout(turn);
-                clearTimeout(p1Attack);
-                clearTimeout(p2Attack);
             }
         });
 
@@ -152,12 +157,13 @@ function battle(){
         if (hit>0) {
             p2GetHit();
             p2HP -= Math.round(hit);
+            
             if (p2HP <=0){
                 document.getElementById("p2HP").innerText="RIP";
+                clearTimeout(turnTime);
+                clearTimeout(p1time);
+                clearTimeout(p2time);
                 endGame(p1Name);
-                clearTimeout(turn);
-                clearTimeout(p1Attack);
-                clearTimeout(p2Attack);
             } else {
                 document.getElementById("p2HP").innerText=p2HP;
                 
@@ -180,10 +186,10 @@ function battle(){
             p1HP -= Math.round(hit);
             if (p1HP <=0){
                 document.getElementById("p1HP").innerText="RIP";
+                clearTimeout(turnTime);
+                clearTimeout(p1time);
+                clearTimeout(p2time);
                 endGame(p2Name);
-                clearTimeout(turn);
-                clearTimeout(p1Attack);
-                clearTimeout(p2Attack);
             } else {
                 document.getElementById("p1HP").innerText=p1HP;
                 return;
