@@ -19,7 +19,35 @@
     grid-area: header; 
     text-align: center;
     color: rgb(19, 19, 201);
-    border-radius: 1em;
+}
+.popup{
+    margin: auto;
+    text-align: center;
+    z-index: 1000;
+    background-color: blue;
+    /* position: absolute; */
+    padding: 1.5em;
+    border: 1em grooved gold; 
+    width: 8em;
+    grid-column: 2/span 2;
+    grid-row: 2/ span 2;
+}
+.popupdivs{
+    margin: auto;
+    text-align: center;
+    line-height: 3em;
+}
+#fight{
+    color: red;
+    font-size: 200%;
+    z-index: 2000;
+    
+}
+#name{
+    color: yellow;
+}
+#wins{
+    color: orange;
 }
 
 .fOneSelect{
@@ -156,6 +184,7 @@
     overflow: hidden;
     min-width: 0;
     height: 20em;
+    z-index: 500;
     /* clip: rect(100px,200px,200px,0px); */
     /* object-fit: cover; */
 }
@@ -266,6 +295,7 @@
     overflow: hidden;
     min-width: 0;
     height: 20em;
+    z-index: 500;
     
     /* clip: rect(100px,200px,200px,0px); */
     /* object-fit: cover; */
@@ -285,6 +315,7 @@
     grid-area: hp;
     font-weight: bolder;
     color: white;
+    background-color: transparent;
 }
 
 .results{
@@ -296,3 +327,32 @@
     grid-row: 4/end;
     grid-column: 1/end;
 }
+.pulseit{
+	-webkit-animation: pulse linear .25s infinite;
+    animation: pulse linear .25s infinite;
+}
+@-webkit-keyframes pulse {
+	0% { width:100px; } 
+	50% { width:170px; } 
+	100% { width:100px; }
+}
+@keyframes pulse {
+	0% { width:100px; } 
+	50% { width:170px; } 
+	100% { width:100px; }
+}
+.flashit{
+    color:#f2f;
+      -webkit-animation: flash linear .2s infinite;
+      animation: flash linear .2s infinite;
+  }
+  @-webkit-keyframes flash {
+      0% { opacity: 1; } 
+      50% { opacity: .1; } 
+      100% { opacity: 1; }
+  }
+  @keyframes flash {
+      0% { opacity: 1; } 
+      50% { opacity: .1; } 
+      100% { opacity: 1; }
+  }

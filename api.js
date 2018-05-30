@@ -11,11 +11,22 @@ const p1Str = document.getElementById("p1StrNum");
 const p1Def = document.getElementById("p1DefNum");
 const p2Str = document.getElementById("p2StrNum");
 const p2Def = document.getElementById("p2DefNum");
-const p1InitHp = document.getElementsByClassName("fOneHp");
-const p2InitHp = document.getElementsByClassName("fTwoHp");
+const p1InitHp = document.getElementById("p1Hp");
+const p2InitHp = document.getElementById("p2Hp");
+const p1HpBox = document.getElementById("fOneHpNum");
+const p2HpBox = document.getElementById("fTwoHpNum");
+const winnerBox = document.getElementById("fight");
+const winnerName = document.getElementById("name");
+const winsText = document.getElementById("wins");
+
+winnerBox.setAttribute("style", "display: none");
+
+
 let p1Name;
 let p2Name;
-
+let winName;
+// console.log(p1InitHp)
+// console.log()
 
 const selectP1 = document.querySelector('.p1Button');
 const selectP2 = document.querySelector('.p2Button');
@@ -23,11 +34,11 @@ const fightButton = document.querySelector('.fightButton');
 
 selectP1.addEventListener('click', p1Search);
 selectP2.addEventListener('click', p2Search);
-// fightButton.addEventListener('click', battle);
+fightButton.addEventListener('click', battle);
 
 function p1Search(a){
     let pokeName = p1Input.value;
-    console.log(pokeName);
+    // console.log(pokeName);
 
         if(pokeName.trim() == "") {
             alert("Enter a pokemon!");
@@ -39,7 +50,7 @@ function p1Search(a){
             // mode: 'no-cors',
         })
         .then(function (response){
-            console.log(response)
+            // console.log(response)
             return response.json()
         })
         .then(data => {
@@ -57,7 +68,7 @@ function enterP1(data){
         p1ImageSet.removeChild(p1ImageSet.firstChild);
     }
     let capName=capFirstName(data.name);
-    console.log(capName)
+    // console.log(capName)
     p1NameSet.innerText=capName;
     p1Name=capName;
     p1ImageSet.innerHTML=`<img id= "fOneSprite" src=${data.sprites.front_default} />`
@@ -67,7 +78,7 @@ function enterP1(data){
 
 function p2Search(a){
     let pokeName2 = p2Input.value;
-    console.log(pokeName2);
+    // console.log(pokeName2);
 
         if(pokeName2.trim() == "") {
             alert("Enter a pokemon!");
@@ -79,7 +90,7 @@ function p2Search(a){
             // mode: 'no-cors',
         })
         .then(function (response){
-            console.log(response)
+            // console.log(response)
             return response.json()
         })
         .then(data => {
@@ -97,46 +108,154 @@ function enterP2(data){
         p2ImageSet.removeChild(p2ImageSet.firstChild);
     }
     let capName=capFirstName(data.name);
-    console.log(capName)
     p2NameSet.innerText=capName;
     p2Name=capName;
     p2ImageSet.innerHTML=`<img id= "fTwoSprite" src=${data.sprites.front_default} />`
     p2Str.innerText=data.stats[2].base_stat;
     p2Def.innerText=data.stats[1].base_stat;
+    
 }
 
 
-// function battle(x){
-//     let p1HP=p1InitHp;
-//     let p2HP=p2InitHp;
+function battle(){
+    let p1HP=document.getElementById("p1HP").innerText;
+    let p2HP=document.getElementById("p2HP").innerText;
+    var haveWinner = false;
     
-//     let p2AttackStr=p2Str;
-//     let p1DefStr=p1Def;
-//     let p2DefStr=p2Def;
-
-//     function p1Attack() {
-//         let p1AttackStr=p1Str;
-//         let p2DefStr=p2Def;
-//         let hitPower= math.random();
-//         let defPower=math.random();
-
-//         p1AttackStr=p1AttackStr*hitPower;
-//         p2DefStr=p2DefStr*defPower;
-//         let hit=p1AttackStr-p2DefStr;
-//         if (hit>0) {
-//             for (hit; hit > 0; hit--) {
-//             console.log(hit);
-//             p2HP -= hit;
-//             p2NameSet.innerText=p2HP;
-//         } else {
-//             console.log("miss");
-//         }
-//       }
-//     }
+    let p1AttackStr=document.getElementById("p1StrNum").innerText;
+    let p2AttackStr=document.getElementById("p2StrNum").innerText;
+    let p1DefStr=document.getElementById("p1DefNum").innerText;
+    let p2DefStr=document.getElementById("p2DefNum").innerText;
     
+    if (p1Name && p2Name){
+        setTimeout(turn, 3000);
+    } else {
+        alert ("Enter combatants!");
+    };
+    
+    function turn(){
+        new Promise ((resolve, reject) => {setTimeout(p1Attack, 5000);
+            resolve();
+        })
+        .then(()=>{
+        if (p2HP>0){
+            setTimeout(p2Attack, 3000);
+            
+            if (p1HP <=0 ){
+                endGame(p2Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack());
+                clearTimeout(p2Attack);   
+                } else {
+                    setTimeout(turn, 3000);
+                }
+            } else {
+                endGame(p1Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack);
+                clearTimeout(p2Attack);
+            }
+        });
+        // p1Attack();
+        // p2Attack();
+    
+    }
+    function p1Attack() {
+        let hitPower= randomGen();
+        let defPower=Math.random();
+        let turnStr = p1AttackStr*hitPower;
+        let turnDef = p2DefStr*defPower;
+        let hit=p1AttackStr-p2DefStr;
+        p1Attacks();
+        if (hit>0) {
+            p2GetHit();
+            p2HP -= Math.round(hit);
+            if (p2HP <=0){
+                document.getElementById("p2HP").innerText="RIP";
+                endGame(p1Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack);
+                clearTimeout(p2Attack);
+            } else {
+                document.getElementById("p2HP").innerText=p2HP;
+                
+            }
+            
+            //add graphic to show hit
+        } else {
+            console.log(`${p1Name} missed`);
+        }
+      
+    }
+    function p2Attack() {
+        let hitPower= randomGen();
+        let defPower=Math.random();
+        let turnStr = p2AttackStr*hitPower;
+        let turnDef = p1DefStr*defPower;
+        let hit=p2AttackStr-p1DefStr;
+        p2Attacks();
+        if (hit>0) {
+            p1GetHit();
+            p1HP -= Math.round(hit);
+            if (p1HP <=0){
+                document.getElementById("p1HP").innerText="RIP";
+                endGame(p2Name);
+                clearTimeout(turn);
+                clearTimeout(p1Attack);
+                clearTimeout(p2Attack);
+            } else {
+                document.getElementById("p1HP").innerText=p1HP;
+                return;
+            }
+            //add graphic to show hit
+        } else {
+            console.log(`${p2Name} missed`);
+        }
+      
+    }
     
 
-// }
+}
+function p1GetHit(){
+    document.getElementById("fOneHpNum").classList.add("flashit");
+    
+    setTimeout(toggleClass, 500);
+
+    function toggleClass(){
+        document.getElementById("fOneHpNum").classList.toggle("flashit");
+    }
+        
+    }
+    
+    function p2GetHit(){
+        document.getElementById("fTwoHpNum").classList.add("flashit");
+    
+    setTimeout(toggleClass, 500);
+
+    function toggleClass(){
+        document.getElementById("fTwoHpNum").classList.toggle("flashit");
+    }
+        
+}
+
+function p1Attacks(){
+    document.getElementById("fOneSprite").classList.add("flashit");
+
+    setTimeout(toggleClass, 300);
+
+    function toggleClass(){
+        document.getElementById("fOneSprite").classList.toggle("flashit");
+    }
+}
+function p2Attacks(){
+    document.getElementById("fTwoSprite").classList.add("flashit");
+
+    setTimeout(toggleClass, 300);
+
+    function toggleClass(){
+        document.getElementById("fTwoSprite").classList.toggle("flashit");
+    }
+}
 function capFirstName(x){
     for (let j in x){
         if (j == 0) {
@@ -149,7 +268,16 @@ function capFirstName(x){
     }
     return x;
 }
-function randomGen(z){
-    z= math.random(z);
-    return z;
+function randomGen(){
+    return Math.random()*(.5)+.5;
+    
+}
+
+function endGame(winName){
+    document.getElementById("name").innerText=winName;
+    setTimeout(setWinnerBox, 2000);
+    function setWinnerBox(){
+        winnerBox.setAttribute("style", "display: yes");
+    };
+    // setTimeout(location.reload(), 5000);
 }
