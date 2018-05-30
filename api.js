@@ -21,12 +21,9 @@ const winsText = document.getElementById("wins");
 
 winnerBox.setAttribute("style", "display: none");
 
-
 let p1Name;
 let p2Name;
 let winName;
-// console.log(p1InitHp)
-// console.log()
 
 const selectP1 = document.querySelector('.p1Button');
 const selectP2 = document.querySelector('.p2Button');
@@ -38,19 +35,15 @@ fightButton.addEventListener('click', battle);
 
 function p1Search(a){
     let pokeName = p1Input.value;
-    // console.log(pokeName);
 
         if(pokeName.trim() == "") {
             alert("Enter a pokemon!");
         } else {
         url = baseURL + pokeName.toLowerCase();
-        // console.log(url);
-        
+
         fetch(url, {
-            // mode: 'no-cors',
         })
         .then(function (response){
-            // console.log(response)
             return response.json()
         })
         .then(data => {
@@ -68,7 +61,6 @@ function enterP1(data){
         p1ImageSet.removeChild(p1ImageSet.firstChild);
     }
     let capName=capFirstName(data.name);
-    // console.log(capName)
     p1NameSet.innerText=capName;
     p1Name=capName;
     p1ImageSet.innerHTML=`<img id= "fOneSprite" src=${data.sprites.front_default} />`
@@ -78,19 +70,13 @@ function enterP1(data){
 
 function p2Search(a){
     let pokeName2 = p2Input.value;
-    // console.log(pokeName2);
-
         if(pokeName2.trim() == "") {
             alert("Enter a pokemon!");
         } else {
         url = baseURL + pokeName2.toLowerCase();
-        // console.log(url);
-        
         fetch(url, {
-            // mode: 'no-cors',
         })
         .then(function (response){
-            // console.log(response)
             return response.json()
         })
         .then(data => {
@@ -112,11 +98,8 @@ function enterP2(data){
     p2Name=capName;
     p2ImageSet.innerHTML=`<img id= "fTwoSprite" src=${data.sprites.front_default} />`
     p2Str.innerText=data.stats[2].base_stat;
-    p2Def.innerText=data.stats[1].base_stat;
-    
+    p2Def.innerText=data.stats[1].base_stat;   
 }
-
-
 function battle(){
     let p1HP=document.getElementById("p1HP").innerText;
     let p2HP=document.getElementById("p2HP").innerText;
@@ -144,7 +127,7 @@ function battle(){
             if (p1HP <=0 ){
                 endGame(p2Name);
                 clearTimeout(turn);
-                clearTimeout(p1Attack());
+                clearTimeout(p1Attack);
                 clearTimeout(p2Attack);   
                 } else {
                     setTimeout(turn, 3000);
@@ -156,16 +139,15 @@ function battle(){
                 clearTimeout(p2Attack);
             }
         });
-        // p1Attack();
-        // p2Attack();
-    
+
     }
     function p1Attack() {
         let hitPower= randomGen();
         let defPower=Math.random();
         let turnStr = p1AttackStr*hitPower;
         let turnDef = p2DefStr*defPower;
-        let hit=p1AttackStr-p2DefStr;
+        let hit=turnStr-turnDef;
+
         p1Attacks();
         if (hit>0) {
             p2GetHit();
@@ -180,8 +162,6 @@ function battle(){
                 document.getElementById("p2HP").innerText=p2HP;
                 
             }
-            
-            //add graphic to show hit
         } else {
             console.log(`${p1Name} missed`);
         }
@@ -192,7 +172,8 @@ function battle(){
         let defPower=Math.random();
         let turnStr = p2AttackStr*hitPower;
         let turnDef = p1DefStr*defPower;
-        let hit=p2AttackStr-p1DefStr;
+        let hit=turnStr-turnDef;
+        
         p2Attacks();
         if (hit>0) {
             p1GetHit();
@@ -207,14 +188,10 @@ function battle(){
                 document.getElementById("p1HP").innerText=p1HP;
                 return;
             }
-            //add graphic to show hit
         } else {
             console.log(`${p2Name} missed`);
-        }
-      
+        }     
     }
-    
-
 }
 function p1GetHit(){
     document.getElementById("fOneHpNum").classList.add("flashit");
@@ -269,8 +246,15 @@ function capFirstName(x){
     return x;
 }
 function randomGen(){
-    return Math.random()*(.5)+.5;
-    
+    let x = Math.floor(Math.random()*10);
+    let y = Math.random()*(.5)+.5;  
+    if (x>5){
+        console.log("bonus");
+        return y+1;
+    } else{
+        return y;
+    }
+
 }
 
 function endGame(winName){

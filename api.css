@@ -24,11 +24,11 @@
     margin: auto;
     text-align: center;
     z-index: 1000;
-    background-color: blue;
-    /* position: absolute; */
+    background: radial-gradient(blue, red, white);
     padding: 1.5em;
-    border: 1em grooved gold; 
-    width: 8em;
+    border: 1em groove rgba(255,215,0,.5);
+
+    width: 12em;
     grid-column: 2/span 2;
     grid-row: 2/ span 2;
 }
@@ -59,15 +59,31 @@
 }
 #p1Button{
     margin: 1em;
+    border-radius: .5em;
+    color: white;
+    background-color: blue;
 }
-
+#p1Button:active{
+    opacity: .75;
+}
+#p1Button:hover{
+    background-color: rgb(77, 74, 74);
+}
 .fightButton{
     font-style: bold;
     grid-row: 2/span 1;
     grid-column: 2/4;
     margin: auto;
+    border-radius: .5em;
+    color: white;
+    background-color: blue;
 }
-
+.fightButton:active{
+    opacity: .75;
+}
+.fightButton:hover{
+    background-color: rgb(77, 74, 74);
+}
 .fTwoSelect{
     margin: auto;
     grid-column: 3/end;
@@ -77,8 +93,16 @@
 }
 #p2Button{
     margin: 1em;
+    border-radius: .5em;
+    color: white;
+    background-color: blue;
 }
-
+#p2Button:active{
+    opacity: .75;
+}
+#p2Button:hover{
+    background-color: rgb(77, 74, 74);
+}
 .battleArea{
     grid-area: arena;
     margin: 1em;
@@ -88,9 +112,7 @@
     display: grid;
     grid-template-areas:
         "f1 f2";
-    
 }
-
 .fTwo{
     margin: 1em;
     border: .1em solid black;
@@ -102,7 +124,6 @@
         "pic pic stats";
     grid-template-columns: 1fr 1fr 6em;
     grid-template-rows: 6em auto auto 6em;
-    /* max-width: 752.79px; */
 }
 .fTwoStats{
     grid-area: stats;
@@ -126,7 +147,6 @@
     margin: auto;
     line-height: 1.5em;
 }
-
 .statNums2{
     margin: auto;
     color: white;
@@ -163,7 +183,6 @@
     background: linear-gradient(to bottom left,yellow, red);
     font-weight: bolder;
     font-size:300%;
-    
 }
 #fTwoImage{
     grid-area: pic;
@@ -171,13 +190,10 @@
     grid-row: 2/end;
     border: .1em solid black;
     min-height: 0;
-    /* max-width: 564.6px; */
     background-image: url("https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     background-size: cover;
-    /* background-color: black; */
 }
 #fTwoSprite{
-    /* margin: auto; */
     grid-area: pic;
     grid-column: 1/3;
     grid-row: 2/end;
@@ -185,14 +201,7 @@
     min-width: 0;
     height: 20em;
     z-index: 500;
-    /* clip: rect(100px,200px,200px,0px); */
-    /* object-fit: cover; */
 }
-/* img.fOneImageClass{
-    border: 5px solid black;
-    margin: auto; 
-    height: 500px;
-} */
 #fTwoHp{
     grid-area: hp;
     grid-row:5/6;
@@ -240,8 +249,6 @@
 
 .statNums1{
     margin: auto;
-    /* grid-column: 2/end;
-    grid-row:1/end; */
 }
 #p1StrNum{
     margin: auto;
@@ -284,11 +291,8 @@
     background-image: url("https://images.pexels.com/photos/302804/pexels-photo-302804.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     background-size: cover;
     transform: scaleX(-1);
-    /* background-color: black; */
-    
 }
 #fOneSprite{
-    /* margin: auto; */
     grid-area: pic;
     grid-column: 2/end;
     grid-row: 2/end;
@@ -296,9 +300,6 @@
     min-width: 0;
     height: 20em;
     z-index: 500;
-    
-    /* clip: rect(100px,200px,200px,0px); */
-    /* object-fit: cover; */
 }
 #fOneHp{
     grid-area: hp;
@@ -317,11 +318,9 @@
     color: white;
     background-color: transparent;
 }
-
 .results{
     margin: 1em;
 }
-
 .footer{
     margin: 1em;
     grid-row: 4/end;
@@ -347,12 +346,12 @@
       animation: flash linear .2s infinite;
   }
   @-webkit-keyframes flash {
-      0% { opacity: 1; } 
-      50% { opacity: .1; } 
-      100% { opacity: 1; }
+      0% { opacity: 1; color: red} 
+      50% { opacity: .1; color: red} 
+      100% { opacity: 1; color: red}
   }
   @keyframes flash {
-      0% { opacity: 1; } 
-      50% { opacity: .1; } 
-      100% { opacity: 1; }
+      0% { opacity: 1; color: red} 
+      50% { opacity: .1; color: red} 
+      100% { opacity: 1; color: red}
   }
