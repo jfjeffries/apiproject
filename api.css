@@ -184,6 +184,7 @@
     overflow: hidden;
     min-width: 0;
     height: 20em;
+    z-index: 500;
     /* clip: rect(100px,200px,200px,0px); */
     /* object-fit: cover; */
 }
@@ -294,6 +295,7 @@
     overflow: hidden;
     min-width: 0;
     height: 20em;
+    z-index: 500;
     
     /* clip: rect(100px,200px,200px,0px); */
     /* object-fit: cover; */
@@ -325,3 +327,32 @@
     grid-row: 4/end;
     grid-column: 1/end;
 }
+.pulseit{
+	-webkit-animation: pulse linear .25s infinite;
+    animation: pulse linear .25s infinite;
+}
+@-webkit-keyframes pulse {
+	0% { width:100px; } 
+	50% { width:170px; } 
+	100% { width:100px; }
+}
+@keyframes pulse {
+	0% { width:100px; } 
+	50% { width:170px; } 
+	100% { width:100px; }
+}
+.flashit{
+    color:#f2f;
+      -webkit-animation: flash linear .2s infinite;
+      animation: flash linear .2s infinite;
+  }
+  @-webkit-keyframes flash {
+      0% { opacity: 1; } 
+      50% { opacity: .1; } 
+      100% { opacity: 1; }
+  }
+  @keyframes flash {
+      0% { opacity: 1; } 
+      50% { opacity: .1; } 
+      100% { opacity: 1; }
+  }

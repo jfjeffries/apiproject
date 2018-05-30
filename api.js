@@ -128,22 +128,24 @@ function battle(){
     let p2DefStr=document.getElementById("p2DefNum").innerText;
     
     if (p1Name && p2Name){
-        turn();
+        setTimeout(turn, 3000);
     } else {
         alert ("Enter combatants!");
     };
 
     function turn(){
-        setTimeout(p1Attack, 2000);
+        setTimeout(p1Attack, 5000);
+        
         if (p2HP>0){
-            setTimeout(p2Attack, 2000);
+            setTimeout(p2Attack, 3000);
+            
             if (p1HP <=0 ){
-                setTimeout(endGame(p2Name), 2000);   
+                endGame(p2Name);   
                 } else {
-                    setTimeout(turn, 2000);
+                    setTimeout(turn, 3000);
                 }
             } else {
-                setTimeout(endGame(p1Name),2000);
+                endGame(p1Name);
             }
 
         // p1Attack();
@@ -152,17 +154,17 @@ function battle(){
     }
     function p1Attack() {
         let hitPower= randomGen();
-        let defPower=randomGen();
+        let defPower=Math.random();
         let turnStr = p1AttackStr*hitPower;
         let turnDef = p2DefStr*defPower;
         let hit=p1AttackStr-p2DefStr;
-        
+        p1Attacks();
         if (hit>0) {
             p2GetHit();
             p2HP -= Math.round(hit);
             if (p2HP <=0){
                 document.getElementById("p2HP").innerText="RIP";
-                setTimeout (endGame(p1Name), 2000);
+                endGame(p1Name);
             } else {
                 document.getElementById("p2HP").innerText=p2HP;
                 
@@ -174,19 +176,19 @@ function battle(){
         }
       
     }
-    function p2Attack(haveWinner) {
+    function p2Attack() {
         let hitPower= randomGen();
-        let defPower=randomGen();
+        let defPower=Math.random();
         let turnStr = p2AttackStr*hitPower;
         let turnDef = p1DefStr*defPower;
         let hit=p2AttackStr-p1DefStr;
-    
+        p2Attacks();
         if (hit>0) {
             p1GetHit();
             p1HP -= Math.round(hit);
             if (p1HP <=0){
                 document.getElementById("p1HP").innerText="RIP";
-                setTimeout (endGame(p2Name), 2000);
+                endGame(p2Name);
             } else {
                 document.getElementById("p1HP").innerText=p1HP;
                 return;
@@ -201,54 +203,45 @@ function battle(){
 
 }
 function p1GetHit(){
-        setTimeout (loop, 1000);
-        function loop(i){
-        setTimeout(turnRed, 1000)
-            i+=1
-            if(i<5){
-                setTimeout(turnClear, 1000);
-                i+=1;
-                loop(i);
-            };
-        setTimeout(turnClear, 1000);   
-        };
-    }
+    document.getElementById("fOneHpNum").classList.add("flashit");
     
-    function turnRed(){
-        document.getElementById("fOneHpNum").setAttribute("style", "background-color: red");
-    }
-    function turnWhite(){
-        document.getElementById("fOneHpNum").setAttribute("style", "background-color: white");
-    }
-    function turnClear(){
-        document.getElementById("fOneHpNum").setAttribute("style", "background-color: transparent");
-    }
+    setTimeout(toggleClass, 500);
 
+    function toggleClass(){
+        document.getElementById("fOneHpNum").classList.toggle("flashit");
+    }
+        
+    }
     
     function p2GetHit(){
-        setTimeout (loop, 1000);
-        function loop(i){
-        setTimeout(turnRed2, 1000)
-            i+=1
-            if(i<5){
-                setTimeout(turnClear2, 1000);
-                i+=1;
-                loop(i);
-            };
-        setTimeout(turnClear2, 1000);
-        };
-    }
-    function turnRed2(){
-        document.getElementById("fTwoHpNum").setAttribute("style", "background-color: red");
-    }
-    function turnWhite2(){
-        document.getElementById("fTwoHpNum").setAttribute("style", "background-color: white");
-    }
-    function turnClear2(){
-        document.getElementById("fTwoHpNum").setAttribute("style", "background-color: transparent");
-    }
+        document.getElementById("fTwoHpNum").classList.add("flashit");
+    
+    setTimeout(toggleClass, 500);
 
+    function toggleClass(){
+        document.getElementById("fTwoHpNum").classList.toggle("flashit");
+    }
+        
+}
 
+function p1Attacks(){
+    document.getElementById("fOneSprite").classList.add("pulseit");
+
+    setTimeout(toggleClass, 100);
+
+    function toggleClass(){
+        document.getElementById("fOneSprite").classList.toggle("pulseit");
+    }
+}
+function p2Attacks(){
+    document.getElementById("fTwoSprite").classList.add("pulseit");
+
+    setTimeout(toggleClass, 100);
+
+    function toggleClass(){
+        document.getElementById("fTwoSprite").classList.toggle("pulseit");
+    }
+}
 function capFirstName(x){
     for (let j in x){
         if (j == 0) {
@@ -262,7 +255,8 @@ function capFirstName(x){
     return x;
 }
 function randomGen(){
-    return Math.random();
+    return Math.random()*(.5)+.5;
+    
 }
 
 function endGame(winName){
