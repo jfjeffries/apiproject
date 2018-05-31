@@ -18,6 +18,7 @@ const p2HpBox = document.getElementById("fTwoHpNum");
 const winnerBox = document.getElementById("fight");
 const winnerName = document.getElementById("name");
 const winsText = document.getElementById("wins");
+const resetButton = document.getElementById("resetButton");
 
 winnerBox.setAttribute("style", "display: none");
 
@@ -36,6 +37,7 @@ const fightButton = document.querySelector('.fightButton');
 selectP1.addEventListener('click', p1Search);
 selectP2.addEventListener('click', p2Search);
 fightButton.addEventListener('click', battle);
+resetButton.addEventListener('click', reset);
 
 function p1Search(a){
     let pokeName = p1Input.value;
@@ -115,7 +117,7 @@ function battle(){
     let p2DefStr=document.getElementById("p2DefNum").innerText;
     
     if (p1Name && p2Name){
-        turnTime=setTimeout(turn, 3000);
+        turnTime=setTimeout(turn, 1000);
     } else {
         alert ("Enter combatants!");
     };
@@ -269,5 +271,8 @@ function endGame(winName){
     function setWinnerBox(){
         winnerBox.setAttribute("style", "display: yes");
     };
-    // setTimeout(location.reload(), 5000);
+    
+}
+function reset(){
+    location.reload();
 }

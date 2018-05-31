@@ -19,6 +19,22 @@
     grid-area: header; 
     text-align: center;
     color: rgb(19, 19, 201);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    display: inline;
+    box-shadow: -.5em .5em .25em black;
+}
+.headerIcons{
+    width: 4em;
+    
+    margin-top: .5em;
+}
+#imgLeft{
+    float: left;
+    margin-left: 3em;
+}
+#imgRight{
+    float: right;
+    margin-right: 3em;
 }
 .popup{
     margin: auto;
@@ -27,15 +43,35 @@
     background: radial-gradient(blue, red, white);
     padding: 1.5em;
     border: 1em groove rgba(255,215,0,.5);
-
+    box-shadow: -.5em .5em .25em black;
     width: 12em;
     grid-column: 2/span 2;
     grid-row: 2/ span 2;
+    text-shadow: -.1em 0 black, 0 .1em black, .1em 0 black, 0 -.1em black;
+    animation-name: animatePopup;
+    animation-duration: .5s;
+}
+@keyframes animatePopup{
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1};
 }
 .popupdivs{
     margin: auto;
     text-align: center;
     line-height: 3em;
+}
+#reset{
+    padding: .5em;
+    padding-bottom: 0em;
+    line-height: 0em;
+}
+#resetButton{
+    border-radius: .5em;
+    color: white;
+    background-color: blue;
+}
+#resetButton:hover{
+    background-color: rgb(77, 74, 74);
 }
 #fight{
     color: red;
@@ -124,6 +160,7 @@
         "pic pic stats";
     grid-template-columns: 1fr 1fr 6em;
     grid-template-rows: 6em auto auto 6em;
+    box-shadow: -.5em .5em .25em black;
 }
 .fTwoStats{
     grid-area: stats;
@@ -201,6 +238,8 @@
     min-width: 0;
     height: 20em;
     z-index: 500;
+    animation-name: animatePopup;
+    animation-duration: .9s;
 }
 #fTwoHp{
     grid-area: hp;
@@ -230,6 +269,7 @@
     grid-template-columns: 6em 1fr 1fr;
     grid-template-rows: 6em auto auto 6em;
     max-width: 752.79px;
+    box-shadow: -.5em .5em .25em black;
 }
 .fOneStats{
     grid-area: stats;
@@ -300,6 +340,8 @@
     min-width: 0;
     height: 20em;
     z-index: 500;
+    animation-name: animatePopup;
+    animation-duration: .9s;
 }
 #fOneHp{
     grid-area: hp;
